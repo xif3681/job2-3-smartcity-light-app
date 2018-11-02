@@ -8,12 +8,33 @@ import { HomePage } from '../home/home';
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
+  tabRoots: any;
 
   tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  tab2Root = ContactPage; 
+  tab3Root = AboutPage;
+
 
   constructor() {
+
+    this.tabRoots = [
+      {
+        root: HomePage,
+        tabTitle: '首页',
+        tabIcon: 'home'
+      },
+      {
+        root: ContactPage,
+        tabTitle: '任务',
+        tabIcon: 'md-mail'
+      },
+      {
+        root: AboutPage,
+        tabTitle: '我的',
+        tabIcon: 'md-person'
+      }
+    ];
+
 
   }
 }

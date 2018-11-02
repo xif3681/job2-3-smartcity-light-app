@@ -1,17 +1,132 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      我的任务
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
+<div padding>
+  <ion-segment [(ngModel)]="pet">
+    <ion-segment-button value="Handle1">
+      待处理
+    </ion-segment-button>
+    <ion-segment-button value="Handle2">
+      确认中
+    </ion-segment-button>
+    <ion-segment-button value="Handle3">
+      已处理
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="pet">
+  <ion-list *ngSwitchCase="'Handle1'">
+    <ion-card *ngIf="evenNone[0]">
+      <ion-card-header>
+        <div >无任务</div>
+      </ion-card-header>
+    </ion-card>
+    <ion-card *ngFor="let item0 of evenList[0]">
+        <ion-card-header>
+          {{item0.typeName}}
+          <!-- <ion-badge item-end>{{item0.deviceModelName}}</ion-badge> -->
+          <button ion-button block outline style="float: right; width: 40px;height: 23px;" 
+            (click)="setOneStateByUser(item0.id, 2, item0.comment, item0.state)">处理</button>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="evenItems">
+            <ion-icon name="time" class="items-icon" style="color:#999999;"></ion-icon>
+            {{item0.openTime | date:'yyyy-MM-dd HH:mm:ss'}}
+          </p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#6a8f2e;"></ion-icon>
+            类别：{{item0.deviceModelName}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#3cbca3;"></ion-icon>
+            设备：{{item0.deviceDescription}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#fb8703;"></ion-icon>
+            位置：{{item0.regionName}}</p>
+          <p *ngIf="item0.comment" class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#0409f8e8;"></ion-icon>
+            附言：{{item0.comment}}</p>
+        </ion-card-content>
+      
+      
+    </ion-card>
+
   </ion-list>
+
+  <ion-list *ngSwitchCase="'Handle2'">
+    <ion-card *ngIf="evenNone[1]">
+      <ion-card-header>
+        <div >无任务</div>
+      </ion-card-header>
+    </ion-card>
+    <ion-card *ngFor="let item1 of evenList[1]">
+
+        <ion-card-header>
+          {{item1.typeName}}
+          <!-- <ion-badge item-end>{{item1.deviceModelName}}</ion-badge> -->
+        </ion-card-header>
+      
+        <ion-card-content>
+          <p class="evenItems">
+            <ion-icon name="time" style="color:#999999;"></ion-icon>
+            {{item1.openTime | date:'yyyy-MM-dd HH:mm:ss'}}
+          </p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#6a8f2e;"></ion-icon>
+            类别：{{item1.deviceModelName}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#3cbca3;"></ion-icon>
+            设备：{{item1.deviceDescription}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#fb8703;"></ion-icon>
+            位置：{{item1.regionName}}</p>
+          <p *ngIf="item1.comment" class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#0409f8e8;"></ion-icon>
+            附言：{{item1.comment}}</p>
+        </ion-card-content>
+      
+      </ion-card>
+
+  </ion-list>
+
+    <ion-list *ngSwitchCase="'Handle3'">
+      <ion-card *ngIf="evenNone[2]">
+        <ion-card-header>
+          <div >无任务</div>
+        </ion-card-header>
+      </ion-card>
+      <ion-card *ngFor="let item2 of evenList[2]">
+        <ion-card-header>
+          {{item2.typeName}}
+          <!-- <ion-badge item-end>{{item2.deviceModelName}}</ion-badge> -->
+        </ion-card-header>
+        <ion-card-content>
+          <p class="evenItems">
+            <ion-icon name="time" style="color:#999999;"></ion-icon>
+            {{item2.openTime | date:'yyyy-MM-dd HH:mm:ss'}}
+          </p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#6a8f2e;"></ion-icon>
+            类别：{{item2.deviceModelName}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#3cbca3;"></ion-icon>
+            设备：{{item2.deviceDescription}}</p>
+          <p class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#fb8703;"></ion-icon>
+            位置：{{item2.regionName}}</p>
+          <p *ngIf="item2.comment" class="evenItems">
+            <ion-icon name="radio-button-off" class="items-icon" style="color:#0409f8e8;"></ion-icon>
+            附言：{{item2.comment}}</p>
+        </ion-card-content>
+        
+      </ion-card>
+    
+    </ion-list>
+</div>
 </ion-content>

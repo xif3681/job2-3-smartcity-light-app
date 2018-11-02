@@ -1,11 +1,35 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      个人中心
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+<ion-list>
+    <ion-item>
+      <ion-icon name="md-person" item-start></ion-icon>
+      <span>{{username}}</span>
+    </ion-item>
+  <ion-item>
+    <ion-icon name="md-bookmarks" item-start></ion-icon>
+    <span>指南</span>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="md-call" item-start></ion-icon>
+    <span>客服</span>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="md-settings" item-start></ion-icon>
+    <span>设置</span>
+  </ion-item>
+  <ion-item (click)="logout()">
+    <ion-icon name="md-log-out" item-start></ion-icon>
+    <span  class="lsq-cursor">退出</span>
+    <!-- <button ion-button (click)="logout()">Go Back</button> -->
+  </ion-item>
+</ion-list>
+
 
 </ion-content>

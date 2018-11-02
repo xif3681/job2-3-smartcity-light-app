@@ -1,0 +1,87 @@
+<ion-header>
+
+    <ion-navbar>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col col-1 col-sm>
+                    <ion-icon name="arrow-back" (click)="dismissClose()"></ion-icon>
+
+                </ion-col>
+                <ion-col col-11 col-sm >
+                    <span>当前定位：</span>
+                    <span *ngIf="currentProvince"> {{currentProvince.name}} > </span>
+                    <span *ngIf="currentCity">{{currentCity.name}} > </span>
+                    <span *ngIf="currentRegion">{{currentRegion.name}} > </span>
+                    <span *ngIf="currentStreet">{{currentStreet.name}}</span>
+        
+                </ion-col>
+        
+        
+        
+        
+            </ion-row>
+        </ion-grid>
+
+
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div >
+        <!-- <div class="position-city">
+            <span>当前定位：</span>
+            <span *ngIf="currentProvince"> {{currentProvince.name}} > </span>
+            <span *ngIf="currentCity">{{currentCity.name}} > </span>
+            <span *ngIf="currentRegion">{{currentRegion.name}} > </span>
+            <span *ngIf="currentStreet">{{currentStreet.name}}</span>
+        </div> -->
+
+
+    <ion-list>
+        <ion-list-header>
+            选择省份
+        </ion-list-header>
+        <ion-item *ngFor="let item of provinceList" (click)="selecteProvince(item)">
+            {{item.name}}
+
+        </ion-item>
+    
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            选择城市
+        </ion-list-header>
+        <ion-item *ngFor="let item of cityList" (click)="selecteCity(item)">
+            {{item.name}}
+        </ion-item>
+
+    </ion-list>
+    <ion-list>
+        <ion-list-header>
+            选择区域
+        </ion-list-header>
+        <ion-item *ngFor="let item of regionList" (click)="selecteRegion(item)">
+            {{item.name}}
+
+        </ion-item>
+    
+    </ion-list>
+        <ion-list>
+            <ion-list-header>
+                选择街道
+            </ion-list-header>
+            <ion-item *ngFor="let item of streetList" (click)="selecteStreet(item)">
+                {{item.name}}
+        
+            </ion-item>
+        
+        </ion-list>
+    </div>
+
+
+    <button ion-button color="danger" full (click)="dismissOk()">确定</button>
+
+</ion-content>

@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    //...
+    "baseUrl": "./src",
+    "paths": {
+      "@environment": [
+        "config/config.prod"
+      ]
+    },
     "allowSyntheticDefaultImports": true,
     "declaration": false,
     "emitDecoratorMetadata": true,

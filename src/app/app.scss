@@ -14,3 +14,155 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.lsq-cursor {
+    cursor: pointer;
+}
+ .text-center {
+     text-align: center;
+ }
+ .box-flex{
+  display: flex;
+ }
+ .align-items-center {
+    align-items: center!important;//align-items属性定义项目在交叉轴上如何对齐。
+ }
+ .justify-content-center{
+     justify-content: center!important;//justify-content属性定义了项目在主轴上的对齐方式。
+ }
+ .lsq-h-btn {
+    font-size: 14px;
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background: #488aff;
+ }
+ // 隐藏百度地图logo
+.BMap_cpyCtrl, .anchorBL{
+    display: none;
+}
+
+
+// 气泡
+.tag-bule{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 5px solid #e8f0f5;
+    position: relative;
+    background: #56c5ff;
+    cursor: pointer;
+}
+.tag-bule:before,.tag-bule:after{
+    content:"";
+    display:block;
+    border-width:5px;
+    position:absolute; 
+    bottom:-14px;
+    left: 0px;
+    border-style:solid dashed dashed;
+    border-color:#e8f0f5 transparent transparent;
+    font-size:0;
+    line-height:0;
+}
+.tag-bule:after{
+    bottom:-7px;
+    border-color:#56c5ff transparent transparent;
+}
+
+.tag-red{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 5px solid #e8f0f5;
+    position: relative;
+    background: #f44336;
+    cursor: pointer;
+}
+.tag-red:before,.tag-red:after{
+    content:"";
+    display:block;
+    border-width:5px;
+    position:absolute; 
+    bottom:-14px;
+    left: 0px;
+    border-style:solid dashed dashed;
+    border-color:#e8f0f5 transparent transparent;
+    font-size:0;
+    line-height:0;
+}
+.tag-red:after{
+    bottom:-7px;
+    border-color:#f44336 transparent transparent;
+}
+
+.tag-grad{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    border: 5px solid #e8f0f5;
+    position: relative;
+    background: #b0bec5;
+    cursor: pointer;
+}
+.tag-grad:before,.tag-grad:after{
+    content:"";
+    display:block;
+    border-width:5px;
+    position:absolute; 
+    bottom:-14px;
+    left: 0px;
+    border-style:solid dashed dashed;
+    border-color:#e8f0f5 transparent transparent;
+    font-size:0;
+    line-height:0;
+}
+.tag-grad:after{
+    bottom:-7px;
+    border-color:#b0bec5 transparent transparent;
+}
+.tag-green{
+    // z-index: 999;
+    // position: absolute;
+    width: 128px;
+    height: 38px;
+    line-height: 30px;
+    user-select: none;
+    // left: 137px;
+    // top: 227px;
+    border-radius: 20px;
+    // width: 20px;
+    // height: 20px;
+    // line-height: 20px;
+    text-align: center;
+    // border-radius: 50%;
+    border: 5px solid #e8f0f5;
+    position: relative;
+    background: #04ec9f;
+    cursor: pointer;
+}
+.tag-green:before,.tag-green:after{
+    content: "";
+    display: block;
+    border-width: 6px;
+    position: absolute;
+    bottom: -15px;
+    left: 40px;
+    border-style: solid dashed dashed;
+    border-color: #e8f0f5 transparent transparent;
+    font-size: 0;
+    line-height: 0;
+}
+.tag-green:after{
+    bottom:-12px;
+    border-color:#04ec9f transparent transparent;
+}
+//  .BMap_center {
+//     width: 170px !important;
+//     height: 28px !important;
+//  }

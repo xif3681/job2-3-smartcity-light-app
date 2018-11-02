@@ -1,17 +1,103 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12 col-sm (click)="openModalWithParams()">
+              <ion-icon ios="ios-pin" md="md-pin" class="lsq-ionic"></ion-icon>
+              <span class="filter" *ngIf="city" >{{city.name}}</span>
+              <span class="filter" *ngIf="!city" >选择城市</span>
+              <ion-icon ios="ios-arrow-down" md="md-arrow-down"></ion-icon>
+
+            </ion-col>
+
+              
+    
+        
+          </ion-row>
+        </ion-grid>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+
+
+
+
+
+  <div #map5 id="map_container5"  class = "map-container-{{platform}}"></div>
+<!-- <div class="fixed-content"> -->
+  <div class="control-light-{{platform}}" *ngIf="control">
+  
+    <ion-card style="border-radius: 10px;">
+      <ion-card-header class="row control-light-title" style="border-bottom: 1px solid rgb(207, 212, 214);">
+        <span>亮度调节</span>
+        <div class="light-close">
+          <span (click)="lightClose()">
+            收起
+          </span>
+        </div>
+      </ion-card-header>
+  
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="bottom-items">
+            <ion-col>
+              <span>结束时间</span>
+            </ion-col>
+            <ion-col>
+              <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"
+                [(ngModel)]="event.timeStarts"></ion-datetime>
+            </ion-col>
+            <!-- <ion-col col-4 style="text-align: right;">
+  
+              <button type="button" class="btn btn-outline-info btn-ctr" (click)="setLightsContr(device.id)">临时控制</button>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+
+        <div>
+          <ion-range min="0" max="100" pin="true" [(ngModel)]="brightness" 
+            (ionBlur)="setLightsContr(device.id)" color="secondary">
+            <ion-icon range-left small name="sunny"></ion-icon>
+            <ion-icon range-right name="sunny" color="yellow"></ion-icon>
+          </ion-range>
+        </div>
+  
+      </ion-card-content>
+    </ion-card>
+  
+  
+  </div>
+
+  <div id="r-result" class="locate-res" *ngIf="showBaiduPanel"></div>
+
+  <div class="search-seg-{{platform}}">
+    <div padding>
+      <ion-segment [(ngModel)]="pet" class="seg-head">
+        <ion-segment-button value="Handle1">
+          按位置
+        </ion-segment-button>
+        <ion-segment-button value="Handle2">
+          按编号
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div [ngSwitch]="pet" class="seg-content">
+      <ion-item *ngSwitchCase="'Handle1'">
+        <ion-input placeholder="请输入位置" clearInput [(ngModel)]="strLocate"></ion-input>
+      </ion-item>
+      <ion-item *ngSwitchCase="'Handle2'">
+        <ion-input placeholder="输入设备编号" clearInput [(ngModel)]="strDevice"></ion-input>
+      </ion-item>
+      <button ion-button outline icon-only class="search-btn" (click)="execQuery()">
+        <ion-icon name="locate" style="padding: 0px"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+<!-- </div> -->
+
+  
+  <!-- <div><button (click)="presentProfileModal()">gg</button></div> -->
+  <!-- <ion-input type="text" class="lsq-input"></ion-input> -->
 </ion-content>
