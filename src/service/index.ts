@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeService } from './home.service';
 import { AuthService } from './auth.service';
 import { ContactService } from './contact.service';
+import { VideoService } from './video.sevice';
 
 
 
@@ -11,6 +12,6 @@ import { ContactService } from './contact.service';
         CommonModule
     ],
     declarations: [],
-    providers: [HomeService, AuthService, ContactService ]
+    providers: [HomeService, AuthService, ContactService, VideoService ]
 })
 export class ServiceModule { }

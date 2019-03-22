@@ -15,20 +15,15 @@ export class ContactPage {
   token:any;
   evenNone = [false, false, false]
 
-
   constructor(public navCtrl: NavController, public jwtHelper: JwtHelperService, private storage: Storage,
     public contactService: ContactService) {
       this.evenList[0] = [];
       this.evenList[1] = [];
       this.evenList[2] = [];
-
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad contactPage');
-
-    
+    console.log('ionViewDidLoad contactPage'); 
   }
   ionViewDidEnter(){
     this.getToken();
@@ -76,9 +71,5 @@ export class ContactPage {
         }
       });
     }
-
-  // storage.get('age').then((val) => {
-  //   console.log('Your age is', val);
-  // });
 
 }

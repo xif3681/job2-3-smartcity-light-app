@@ -13,30 +13,22 @@ page-home {
         width: 100%;
     }
     .map-container-md{
-        height: calc(100vh - 124px);
+        height: calc(100vh - 114px);
         width: 100%;
     }
-    .no-fulls-map {
-        height: calc(100vh - 150px)
-    }
+
     .control-light-ios {
-        // height: 50px;
-            position: fixed;
-            bottom: 52px;
-            // background: #fff;
+            position: absolute;
+            bottom: 0;
             width: 100%;
-            // border-radius: 25px;
             font-size: 12px;
             z-index: 3000;
     }
 
     .control-light-md {
-        // height: 50px;
-            position: fixed;
-            bottom: 67px;
-            // background: #fff;
+            position: absolute;
+            bottom: 0;
             width: 100%;
-            // border-radius: 25px;
             font-size: 12px;
             z-index: 3000;
     }
@@ -68,7 +60,6 @@ page-home {
     }
 
     .btn-ctr {
-        // width: 100%;
         height: 26px;
         font-size:12px;
     }
@@ -77,7 +68,6 @@ page-home {
         margin: 8px 16px;
     }
     .light-close {
-        // color: red;
         position: absolute;
         right: 25px;
         align-items: center;
@@ -89,22 +79,17 @@ page-home {
         font-size: 12px;
     }
 
-    // .range-md.range-has-pin {
-    //     padding-top: 8px !important;
-    // }
     .search-seg-ios {
         z-index: 300;
-        position: fixed;
-        bottom: 62px;
-        // bottom: 90px;
+        position: absolute;
+        bottom: 10px;
         width: 100%;
 
     }
     .search-seg-md {
         z-index: 300;
-        position: fixed;
-        bottom: 77px;
-        // bottom: 90px;
+        position: absolute;
+        bottom: 10px;
         width: 100%;
 
     }
@@ -114,7 +99,6 @@ page-home {
         background: white;
     }
     .seg-content {
-        // width: 100%;
         margin: 0 16px;
         position: relative;
 
@@ -127,13 +111,11 @@ page-home {
         }
         .search-btn:hover, .search-btn:focus, .search-btn:active, {
             background-color: white;
-            // color: #0e3b8a;
         }
     }
 
     #r-result {
         width: 100%;
-        // height: 40%;
         max-height: 40%;
         z-index: 10000;
         position: absolute;

@@ -1,5 +1,5 @@
 {
-  "name": "LED",
+  "name": "智慧城市",
   "integrations": {
     "cordova": {}
   },
@@ -7,12 +7,12 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://172.18.1.133:10002/api",
+      "proxyUrl": "http://test1.siid.com.cn/api",
       "rejectUnauthorized": false
     },
     {
       "path": "/security",
-      "proxyUrl": "http://172.18.1.133:10003/security",
+      "proxyUrl": "http://test1.siid.com.cn/security",
       "rejectUnauthorized": false
     },
     {

@@ -11,6 +11,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage,} from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { VideoPage } from '../pages/video/video';
 
 import { ModalPageModule } from '../pages/modal-page/modal-page.module';
 
@@ -35,7 +36,7 @@ export function tokenGetter() {
     AboutPage,
     ContactPage,
     HomePage,
-    // Light,
+    VideoPage,
     LoginPage,
     TabsPage
   ],
@@ -69,7 +70,7 @@ export function tokenGetter() {
     HomePage,
     LoginPage,
     TabsPage,
-    // Light
+    VideoPage
   ],
   providers: [
     StatusBar,

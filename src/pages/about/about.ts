@@ -4,7 +4,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 
-
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
@@ -14,11 +13,7 @@ export class AboutPage {
   model: any = {}; // 存储数据
   username: string = "";
 
-
-
   constructor(public navCtrl: NavController, private appCtrl: App, public alertCtrl: AlertController, public jwtHelper: JwtHelperService, private storage: Storage) {
-
-
   }
 
   ionViewDidLoad() {
@@ -54,14 +49,11 @@ export class AboutPage {
             window.localStorage.removeItem('access_token');
             this.storage.remove('access_token');
             this.appCtrl.getRootNav().setRoot(LoginPage); //调用this.app.getRootNav() 从根页面跳转就可以了)
-            // this.navCtrl.setRoot(LoginPage);
           }
         }
       ]
     });
     confirm.present();
   }
-
-
 
 }

@@ -3,10 +3,11 @@ import { NavController, ModalController, Platform, AlertController } from 'ionic
 import { HomeService } from '../../service/home.service';
 import { CityModalPage } from '../modal-page/city-modal-page';
 import { ToastController } from 'ionic-angular';
-// import { GradOverlar } from '../../service/grad.overlay';
+import { App } from 'ionic-angular';
 import { CircleOverlayService } from '../../service/circle-overlay.service';
+import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
-// baidu map
 // baidu map
 declare var BMap;
 declare let BMAP_ANCHOR_TOP_LEFT;
@@ -39,30 +40,25 @@ export class HomePage  {
     timeStarts: '07:43',
     timeEnds: '1990-02-20'
   }
-
   cityList: any; // 城市列表
   deviceList: any; // 城市列表
   defaultZone: any; // 默认城市
-
-
   node: any;
   parentNode: any;
-  // currentChildren: any; // 当前城市节点
   currentCity: any; // 当前城市
   currentProvince: any;
   currentRegion: any;
   currentStreet: any;
   city: any;
-
-
   pet: string = "Handle1";
   strLocate: string;
   strDevice: string;
   resultPos: any; // 查询到的位置
 
-
   constructor(public plt: Platform, public navCtrl: NavController, private lightService: HomeService,
-      public modalCtrl: ModalController, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+      public modalCtrl: ModalController, public alertCtrl: AlertController, 
+      public toastCtrl: ToastController, private storage: Storage, 
+      private appCtrl: App) {
 
     if (this.plt.is('ios')) {
       // This will only print when on iOS
@@ -75,16 +71,12 @@ export class HomePage  {
       this.platform = 'ios';
       console.log('I am an iOS device!');
     }
-
     // 更改初始时间为 当前时间加一小时
     const Dates = new Date();
     const hourNum = Dates.getHours() + 1;
     const Hours = hourNum < 10 ? '0' + hourNum : hourNum;
     const Minutes = Dates.getMinutes() < 10 ? '0' + Dates.getMinutes() : Dates.getMinutes();
     this.event.timeStarts = Hours + ':' + Minutes;
-    // console.log('foo');
-    // console.log(params.get('foo'));
-
   }
 
   ionViewDidLoad() {
@@ -99,7 +91,6 @@ export class HomePage  {
 
   // 按键点击事件
   execQuery() {
-
     const that = this;
     this.map.closeInfoWindow(this.InfoW); // 开启信息窗口
     if (this.mySquare) {
@@ -107,43 +98,25 @@ export class HomePage  {
     }
     if (this.pet === 'Handle1') { // 位置搜索
       if (this.strLocate === '' || !this.strLocate) {
-        this.showToast('bottom', 'Empty Input!');
-      } else {
-        that.showBaiduPanel = true;
-        const map = that.map;
-        setTimeout(() => {
-          let local = new BMap.LocalSearch(map, {
-            renderOptions: {map: map, panel: "r-result"},
-            pageCapacity:10,
-            // onSearchComplete: function(results) {
-              // const res1 = document.getElementById('r-result');
-              // const res = res1.getElementsByTagName('li').item(1);
-              // const res = res1.querySelectorAll('.locate-res');
-              // console.log(typeof(res));
-              // console.log(res1);
-              // console.log(res);
-              // const elem = res.item;
-              // console.log(elem);
-              // for (let i = 0; i < res.length; i++) {
-              //   console.log('2222222222');
-              //   res[i].addEventListener('click', function () {
-              //     console.log('1211111111');
-              //   });
-              // }
-            // }
-          });
-          // console.log('that.strLocate' + that.strLocate);
-          local.search(that.strLocate);
-        }, 1);
-      }
+        // this.showToast('bottom', 'Empty Input!');
+        return;
+      } 
+      that.showBaiduPanel = true;
+      const map = that.map;
+      setTimeout(() => {
+        let local = new BMap.LocalSearch(map, {
+          renderOptions: { map: map, panel: "r-result" },
+          pageCapacity: 10,
+        });
+
+        local.search(that.strLocate);
+      }, 1);
     }
     else if (this.pet === 'Handle2') { // 按位置
       if (this.strDevice === '' || !this.strDevice) {
-        this.showToast('bottom', 'Empty Input!');
-      } else {
-        console.log(1111111111);
-        this.getLightByDeviceName();
+        return;
       }
+      this.getLightByDeviceName();
       
     }
   }
@@ -151,11 +124,8 @@ export class HomePage  {
   getLightByDeviceName() {
     const that = this;
     const posNum = this.strDevice;
-    console.log('typeof (posNum)');
-    console.log(typeof (posNum));
     that.lightService.getLightByDeviceName(posNum).subscribe({
       next: function(val) {
-        // that.resultPos = val;
         console.log('val');
         console.log(val);
         const point = new BMap.Point(val.point.lng, val.point.lat);
@@ -174,7 +144,7 @@ export class HomePage  {
         if (error.error.errors) {
           message = error.error.errors[0].defaultMessage;
         } else {
-          message = '结果不唯一！';
+          message = '检索出错！';
         }
         
         that.showToast('bottom', message);
@@ -247,15 +217,11 @@ export class HomePage  {
     this.lightService.getZoneDefault().subscribe({
       next: function (val) {
         that.cityList = val.regions;
-
         that.node = that.getNode(val.regions, val.zone.region_id);
         that.currentCity = that.node;
         that.city = that.node;
-
       },
       complete: function () {
-
-
       },
       error: function (error) {
         console.log(error);
@@ -342,23 +308,11 @@ export class HomePage  {
     });
     map.addControl(navigationControl);
     // map.addControl(new BMap.NavigationControl());
-
-
     map.enableScrollWheelZoom(true);//启动滚轮放大缩小，默认禁用
     map.enableContinuousZoom(true);//连续缩放效果，默认禁用
-
-    // let myIcon = new BMap.Icon("assets/icon/favicon.ico", new BMap.Size(25, 25));
-
-    // let marker = this.marker = new BMap.Marker(point, { icon: myIcon });
-    // map.addOverlay(marker);
-
     this.mapClickOff(map);
     this.dragendOff(map);
     this.zoomendOff(map);
-
-    // setTimeout(() => {
-    //   this.getLights(); // 获取地图上的点
-    // }, 1000);
     this.getLights(); // 获取地图上的点
     this.timer = setInterval(() => {
       this.getLights(); // 获取地图上的点
@@ -371,10 +325,6 @@ export class HomePage  {
     const that = this;
     baiduMap.addEventListener('click', function (e) {
       that.showBaiduPanel = false; // 点击地图，收起位置面板
-      // console.log(88888888888)
-      // console.log(e.type)
-      // console.log(e.target)
-      // console.log(e.point)
       that.point = e.point;
       that.control = false;
       if (that.mySquare) {
@@ -383,12 +333,6 @@ export class HomePage  {
       }
       
     });
-    // baiduMap.addEventListener('dragend', function () {
-
-    // });
-    // baiduMap.addEventListener('zoomend', function () {
-
-    // });
   }
 
   // 监控-拖动地图事件-显示用户拖动地图后地图中心的经纬度信息。
@@ -417,7 +361,6 @@ export class HomePage  {
 
   }
 
-
   getLights() {
     const that = this;
     const Bounds = this.map.getBounds(); // 返回地图可视区域，以地理坐标表示
@@ -429,12 +372,9 @@ export class HomePage  {
       next: function (val) {
         compar = that.comparison(that.lightList, val);
         value = that.judgeChange(compar.a_arr, compar.b_arr);
-
         that.changeMarker(value); // 替换
         that.deleMarker(compar.a_surplus); // 删除
-
         that.addMarker(compar.b_surplus); // 添加
-
         that.lightList = val; // 变为新值
 
       },
@@ -443,8 +383,22 @@ export class HomePage  {
       },
       error: function (error) {
         console.log(error);
+        let message = '';
+        if (error['error'].message && error['error'].message.indexOf('expired') > 0) {
+          message = error['error'].message;
+        } else {
+          message = '请求出错';
+          window.clearInterval(that.timer);
+        }
+        that.showToast('middle', message);
       }
     });
+  }
+
+  logout () {
+    window.localStorage.removeItem('access_token');
+    this.storage.remove('access_token');
+    this.appCtrl.getRootNav().setRoot(LoginPage); //调用this.app.getRootNav() 从根页面跳转就可以了)
   }
 
   // 交并补
@@ -515,7 +469,6 @@ export class HomePage  {
   deleMarker(light_list) {
     const makers = this.map.getOverlays();
     for (let ind = 0; ind < light_list.length; ind++) {
-      // const ele = light_list[ind];
       const point = light_list[ind].point;
       for (let index = 0; index < makers.length; index++) {
         const element = makers[index];
@@ -537,14 +490,11 @@ export class HomePage  {
     for (let index = 0; index < light_list.length; index++) {
       const item = light_list[index];
       const point = new BMap.Point(item.point.lng, item.point.lat);
-
       let myIcon;
       if (item.offline === true || item.error === true) { // 异常
         myIcon = new BMap.Icon('assets/imgs/light-breakdown.png', new BMap.Size(36, 36));
-
       } else if (item.level === 0) { // 正常,没亮
         myIcon = new BMap.Icon('assets/imgs/light-normal.png', new BMap.Size(36, 36));
-
       } else if (item.level < 30) { // 一级亮度
         myIcon = new BMap.Icon('assets/imgs/light-up-1.png', new BMap.Size(36, 36));
       } else if (item.level < 70) { // 二级亮度
@@ -553,7 +503,6 @@ export class HomePage  {
         myIcon = new BMap.Icon('assets/imgs/light-up-3.png', new BMap.Size(36, 36));
       }
 
-      // myIcon.setAnchor(new BMap.Size(16, 38));
       const marker = new BMap.Marker(point, { icon: myIcon });  // 创建标注
       this.map.addOverlay(marker);
       markers.push(marker); // 聚合
@@ -573,103 +522,28 @@ export class HomePage  {
 
   // 地图点注标-点击事件
   openSideBar(marker, baiduMap, val, point) {
-    // console.log(val);
     const that = this;
-    // <p style=’font - size: 12px; lineheight: 1.8em; ’> ${ val.name } </p>
-    // const opts = {
-    //   width: 0,     // 信息窗口宽度
-    //   height: 0,     // 信息窗口高度
-    //   title: `编号： ${val.positionNumber}`, // 信息窗口标题
-    //   // enableMessage: true, // 设置允许信息窗发送短息
-    //   enableAutoPan: true, // 自动平移
-    // };
-    // let txt = `位置编号： ${val.positionNumber}`;
-    // let txt = `<p>设备编号： ${val.name}</p>`;
     let txt = `<p style='font-size: 12px; line-height: 1.8em; border-bottom: 1px solid #ccc; padding-bottom: 10px;'>设备编号 | ${val.name} </p>`;
-    // let txt = `
-    // <p >编号： ${val.positionNumber}</p>
-
-    // `;
-  //  let  txt =
-  //     `<p>编号： ${val.positionNumber}</p>
-  //    `;
-
-    // if (val.offline === true) {// 离线
-    //   // 离线或异常
-    //   txt = txt + `   <p style="color: red">是否在线： 否</p>`;
-    // } else {
-    //   txt = txt + `   <p >是否在线： 是</p>`;
-    // }
-
-    // if (val.error === true) {// 离线
-    //   // 离线或异常
-    //   txt = txt + `<p style="color: red">是否故障： 是</p>`;
-    // } else {
-    //   txt = txt + `<p >是否故障： 否</p>`;
-    // }
-    // if (val.rule && val.rule.name) {
-    //   txt = txt + `<p >应用策略： ${val.rule.name}</p>`;
-    // } else {
-    //   txt = txt + `<p >应用策略：无</p>`;
-    // }
     txt = txt + `<p >亮度级别： ${val.level}%</p>`;
-    // txt = txt + `<p >电流强度： ${val.current}毫安(mA)</p>`;
-    // txt = txt + `<p >电压大小： ${val.volt}毫伏(mv)</p>`;
-    // txt = txt + `<button class='lsq-h-btn' onClick='deviceAddEventListener1()'
-    // txt = txt + `<button class='lsq-h-btn' 
-    //   id='luosq${val.id}'>亮度调节</button>`;
 
-    // var infoWindow = this.InfoW = new BMap.InfoWindow(txt);  // 创建信息窗口对象
-    // map.openInfoWindow(infoWindow, point); //开启信息窗口
-
-
-   // const infoWindow = new BMap.InfoWindow(txt, opts);
     // 点击标注
-
     marker.addEventListener('click', function () {
-     // that.closeDevicesControl();
       that.device = val;
       console.log(val);
       that.brightness = that.device.level;
-      // baiduMap.openInfoWindow(infoWindow, point); // 开启信息窗口
       that.getLights(); // 获取地图上的点
       that.map.centerAndZoom(point, 18);//设置中心和地图显示级别
-
       if (that.mySquare) {
         that.map.removeOverlay(that.mySquare);
-
       }
-
       if (that.label) {
         that.map.removeOverlay(that.label);
 
       }
-
-
-      // that.getLights(); // 获取地图上的点
       setTimeout(() => {
-
-
         that.deviceAddEventListener();
-        // console.log(marker);
-        // that.map.removeOverlay(marker);
-        // that.mySquare = new GradOverlar(point, 60, 'tag-bule');
         that.mySquare = new CircleOverlayService(point, val.name, 128, 38, 'green');
-        that.map.addOverlay(that.mySquare);
-        // var opts = {
-        //   position: point,    // 指定文本标注所在的地理位置
-        //   offset: new BMap.Size(0, -30)    //设置文本偏移量
-        // }
-        // var label = that.label= new BMap.Label(`亮度级别： ${val.level}%`, opts);  // 创建文本标注对象
-        // label.setStyle({
-        //   color: "red",
-        //   fontSize: "12px",
-        //   height: "20px",
-        //   lineHeight: "20px",
-        //   fontFamily: "微软雅黑"
-        // });
-        // that.map.addOverlay(label);   
-
+        that.map.addOverlay(that.mySquare); 
       }, 2);
     });
 
@@ -677,7 +551,6 @@ export class HomePage  {
 
   deviceAddEventListener() { // 直接在html写onclik没用
    this.control = true;
-
   }
 
   lightClose() {

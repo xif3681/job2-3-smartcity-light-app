@@ -1,8 +1,8 @@
 {
-  "name": "led",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "smartcity-work",
+  "version": "0.0.2",
+  "author": "创新院智能中心",
+  "homepage": "http://www.siid.com.cn/",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",
@@ -29,10 +29,11 @@
     "@ionic-native/status-bar": "~4.12.0",
     "@ionic/pro": "2.0.3",
     "@ionic/storage": "2.2.0",
-    "cordova-android": "7.0.0",
+    "cordova-android": "7.1.1",
+    "cordova-ios": "^4.5.5",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.1.3",
-    "cordova-plugin-ionic-webview": "^2.2.0",
+    "cordova-plugin-ionic-webview": "^2.3.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
@@ -59,7 +60,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

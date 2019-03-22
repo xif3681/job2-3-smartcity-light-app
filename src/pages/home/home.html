@@ -7,25 +7,15 @@
               <span class="filter" *ngIf="city" >{{city.name}}</span>
               <span class="filter" *ngIf="!city" >选择城市</span>
               <ion-icon ios="ios-arrow-down" md="md-arrow-down"></ion-icon>
-
-            </ion-col>
-
-              
-    
-        
+            </ion-col>             
           </ion-row>
         </ion-grid>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-
-
-
+<ion-content >
 
   <div #map5 id="map_container5"  class = "map-container-{{platform}}"></div>
-<!-- <div class="fixed-content"> -->
   <div class="control-light-{{platform}}" *ngIf="control">
   
     <ion-card style="border-radius: 10px;">
@@ -48,10 +38,6 @@
               <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A"
                 [(ngModel)]="event.timeStarts"></ion-datetime>
             </ion-col>
-            <!-- <ion-col col-4 style="text-align: right;">
-  
-              <button type="button" class="btn btn-outline-info btn-ctr" (click)="setLightsContr(device.id)">临时控制</button>
-            </ion-col> -->
           </ion-row>
         </ion-grid>
 
@@ -94,10 +80,4 @@
       </button>
     </div>
   </div>
-
-<!-- </div> -->
-
-  
-  <!-- <div><button (click)="presentProfileModal()">gg</button></div> -->
-  <!-- <ion-input type="text" class="lsq-input"></ion-input> -->
 </ion-content>
